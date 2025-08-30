@@ -8,7 +8,7 @@ import urllib.parse
 # --------------------------------------------------------------------------
 STREAMLIT_URL = "https://smartlib-app-fcz2i2s8uzbn2ffp5wsbhm.streamlit.app"
 CLIENT_ID = "340752343067-79ipapn7o97qd8ibqvgpjg4687fm7jo7.apps.googleusercontent.com"
-GET_FOLDERS_WEBHOOK_URL = "https://gooooglovskiq.app.n8n.cloud/webhook/4aa31f22-b98e-4c4c-8c0f-93077cf63726"
+GET_FOLDERS_WEBHOOK_URL = "https://goooglovskiq.app.n8n.cloud/webhook/4aa31f22-b98e-4c4c-8c0f-93077cf63726"
 SAVE_FOLDERS_WEBHOOK_URL = "https://gooooglovskiq.app.n8n.cloud/webhook/438e832a-14fc-406a-87b4-d1711ab9c326"
 SCOPES = "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/userinfo.email"
 
@@ -105,3 +105,4 @@ if st.session_state.auth_step == "done":
 if st.session_state.auth_step == "error":
     st.error(st.session_state.error_message)
     st.write("Пожалуйста, попробуйте авторизоваться еще раз, вернувшись в Telegram.")
+
