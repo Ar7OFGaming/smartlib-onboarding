@@ -18,7 +18,7 @@ START_INDEXING_WEBHOOK = "https://goooglovskiq.app.n8n.cloud/webhook/438e832a-14
 # "Магическая" ссылка, которую мы возьмем из n8n
 # ВАЖНО: Redirect URI в этой ссылке должен вести ОБРАТНО на это же Streamlit-приложение!
 # Пример правильной настройки
-STREAMLIT_URL = "https://6cb18303dc7c.ngrok-free.app"
+STREAMLIT_URL = "https://smartlib-app-fcz2i2s8uzbn2ffp5wsbhm.streamlit.app"
 # Вставьте сюда ваш Client ID
 CLIENT_ID = "340752343067-79ipapn7o97qd8ibqvgpjg4687fm7jo7.apps.googleusercontent.com"
 # Ваши scopes, склеенные через пробел
@@ -103,3 +103,4 @@ else:
             st.error(f"Произошла непредвиденная ошибка: {e}")
 
             st.write("Пожалуйста, попробуйте авторизоваться еще раз, вернувшись в Telegram.")
+
