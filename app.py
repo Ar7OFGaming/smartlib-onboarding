@@ -12,7 +12,7 @@ chat_id = query_params.get("chat_id")
 auth_code = query_params.get("code")
 
 # URL вебхука "Обмен кода на токен и получение папок"
-GET_FOLDERS_WEBHOOK = "https://goooglovskiq.app.n8n.cloud/webhook/1665a6b8-e161-4117-bb03-6c5db9b7a148"
+GET_FOLDERS_WEBHOOK = "https://goooglovskiq.app.n8n.cloud/webhook/4aa31f22-b98e-4c4c-8c0f-93077cf63726"
 # URL вебхука "Запуск индексации"
 START_INDEXING_WEBHOOK = "https://goooglovskiq.app.n8n.cloud/webhook/438e832a-14fc-406a-87b4-d1711ab9c326"
 # "Магическая" ссылка, которую мы возьмем из n8n
@@ -103,4 +103,5 @@ else:
             st.error(f"Произошла непредвиденная ошибка: {e}")
 
             st.write("Пожалуйста, попробуйте авторизоваться еще раз, вернувшись в Telegram.")
+
 
