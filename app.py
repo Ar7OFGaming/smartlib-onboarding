@@ -1,4 +1,4 @@
-%%writefile app.py
+
 import streamlit as st
 import requests
 import json
@@ -101,4 +101,5 @@ else:
             st.code(http_err.response.text) # Показываем ответ сервера для отладки
         except Exception as e:
             st.error(f"Произошла непредвиденная ошибка: {e}")
+
             st.write("Пожалуйста, попробуйте авторизоваться еще раз, вернувшись в Telegram.")
