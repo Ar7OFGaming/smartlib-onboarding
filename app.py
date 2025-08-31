@@ -42,11 +42,8 @@ MAGIC_AUTH_LINK = (
   #  f"access_type=offline&prompt=consent"
 #)
 
-# --------------------------------------------------------------------------
-# ШАГ 3: ОСНОВНАЯ ЛОГИКА ПРИЛОЖЕНИЯ
-# --------------------------------------------------------------------------
 st.set_page_config(layout="centered")
-st.title("SmartLib AI: Настройка папок")
+st.title("SmartLib AI: Настройка")
 
 if 'auth_step' not in st.session_state:
     st.session_state.auth_step = "initial"
@@ -59,16 +56,40 @@ query_params = st.query_params
 auth_code = query_params.get("code")
 state = query_params.get("state")
 chat_id_from_tg = query_params.get("chat_id")
+# --- НОВЫЙ ПАРАМЕТР, КОТОРЫЙ МЫ БУДЕМ ИСПОЛЬЗОВАТЬ ДЛЯ ПЕРЕХОДА ---
+open_in_browser = query_params.get("open_in_browser") 
 current_chat_id = state if state else chat_id_from_tg
 
-# РЕЖИМ 1
-if st.session_state.auth_step == "initial":
-    if not current_chat_id:
-        st.error("Ошибка: Не найден ID пользователя. Пожалуйста, вернитесь в Telegram и перейдите по ссылке снова.")
-    else:
-        st.info("Для начала, пожалуйста, предоставьте доступ к вашему аккаунту Google.")
-        final_auth_link = f"{MAGIC_AUTH_LINK}&state={current_chat_id}"
-        st.link_button("Войти через Google и выбрать папки", final_auth_link, use_container_width=True)
+# --- НОВЫЙ РЕЖИМ 0: "Страница-переходник" ---
+# Этот блок сработает только тогда, когда в URL нет параметра &open_in_browser=true
+if not open_in_browser:
+    st.info("Для корректной авторизации, пожалуйста, откройте эту страницу в вашем основном браузере.")
+    # Создаем ссылку, которая добавит к текущему URL параметр &open_in_browser=true
+    redirect_url = f"{STREAMLIT_URL}/?chat_id={current_chat_id}&open_in_browser=true"
+    st.markdown(f'''
+    <a href="{redirect_url}" target="_blank">
+        <button style="width: 100%; padding: 10px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Открыть в браузере
+        </button>
+    </a>
+    ''', unsafe_allow_html=True)
+
+# --- ВСЯ ОСТАЛЬНАЯ ЛОГИКА ТЕПЕРЬ РАБОТАЕТ ТОЛЬКО В "НАСТОЯЩЕМ" БРАУЗЕРЕ ---
+else:
+    # РЕЖИМ 1: Пользователь пришел из "переходника"
+    if st.session_state.auth_step == "initial":
+        if not current_chat_id:
+            st.error("Ошибка: Не найден ID пользователя.")
+        else:
+            st.info("Теперь, пожалуйста, предоставьте доступ к вашему аккаунту Google.")
+            final_auth_link = f"{MAGIC_AUTH_LINK}&state={current_chat_id}"
+            st.markdown(f'''
+            <a href="{final_auth_link}" target="_self">
+                <button style="width: 100%; padding: 10px; font-size: 16px; background-color: #FF4B4B; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Войти через Google и выбрать папки
+                </button>
+            </a>
+            ''', unsafe_allow_html=True)
 
 # РЕЖИМ 2
 if auth_code and st.session_state.auth_step == "initial":
@@ -123,6 +144,7 @@ if st.session_state.auth_step == "done":
 if st.session_state.auth_step == "error":
     st.error(st.session_state.error_message)
     st.write("Пожалуйста, попробуйте авторизоваться еще раз, вернувшись в Telegram.")
+
 
 
 
