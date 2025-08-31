@@ -10,12 +10,18 @@ STREAMLIT_URL = "https://smartlib-app-fcz2i2s8uzbn2ffp5wsbhm.streamlit.app"
 CLIENT_ID = "340752343067-79ipapn7o97qd8ibqvgpjg4687fm7jo7.apps.googleusercontent.com"
 GET_FOLDERS_WEBHOOK_URL = "https://goooglovskiq.app.n8n.cloud/webhook/4aa31f22-b98e-4c4c-8c0f-93077cf63726"
 SAVE_FOLDERS_WEBHOOK_URL = "https://goooglovskiq.app.n8n.cloud/webhook/438e832a-14fc-406a-87b4-d1711ab9c326"
-SCOPES = "https://www.googleapis.com/auth/userinfo.email"
+#SCOPES = "https://www.googleapis.com/auth/userinfo.email"
 # SCOPES = "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/userinfo.email"
+SCOPES = (
+    "https://www.googleapis.com/auth/drive "
+    "https://www.googleapis.com/auth/calendar.events "
+    "https://www.googleapis.com/auth/drive.file "
+    "https://www.googleapis.com/auth/gmail.readonly "
+    "https://www.googleapis.com/auth/gmail.compose "
+    "https://www.googleapis.com/auth/gmail.send"
+)
 
-# --------------------------------------------------------------------------
-# ШАГ 2: СБОРКА "МАГИЧЕСКОЙ" ССЫЛКИ
-# --------------------------------------------------------------------------
+# --- СОБИРАЕМ ПРАВИЛЬНУЮ "МАГИЧЕСКУЮ" ССЫЛКУ ---
 MAGIC_AUTH_LINK = (
     f"https://accounts.google.com/o/oauth2/v2/auth?"
     f"scope={urllib.parse.quote(SCOPES)}&"
@@ -24,6 +30,17 @@ MAGIC_AUTH_LINK = (
     f"client_id={CLIENT_ID}&"
     f"access_type=offline&prompt=consent"
 )
+# --------------------------------------------------------------------------
+# ШАГ 2: СБОРКА "МАГИЧЕСКОЙ" ССЫЛКИ
+# --------------------------------------------------------------------------
+#MAGIC_AUTH_LINK = (
+    #f"https://accounts.google.com/o/oauth2/v2/auth?"
+    #f"scope={urllib.parse.quote(SCOPES)}&"
+    #f"redirect_uri={STREAMLIT_URL}&"
+    #f"response_type=code&"
+    #f"client_id={CLIENT_ID}&"
+  #  f"access_type=offline&prompt=consent"
+#)
 
 # --------------------------------------------------------------------------
 # ШАГ 3: ОСНОВНАЯ ЛОГИКА ПРИЛОЖЕНИЯ
@@ -106,6 +123,7 @@ if st.session_state.auth_step == "done":
 if st.session_state.auth_step == "error":
     st.error(st.session_state.error_message)
     st.write("Пожалуйста, попробуйте авторизоваться еще раз, вернувшись в Telegram.")
+
 
 
 
